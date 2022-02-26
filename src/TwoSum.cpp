@@ -25,6 +25,40 @@ vector<int> naive_twoSum(vector<int>& nums, int target) {
 
 }
 
+// Time complexity O(N)
+vector<int> fast_twoSum(vector<int>& nums, int target) {
+
+    // The key values is the number and the index is the value
+    unordered_map<int, int> hash;
+    vector<int> result;
+
+    //store the vector in the hash
+    for (auto i = 0; i < nums.size(); i++)
+    {
+        hash[nums[i]] = i;
+    }
+
+    for (auto i = 0; i < nums.size(); i++)
+    {
+        auto number_to_find = target - nums[i];
+
+        if (hash.find(number_to_find) != hash.end()) // look up O(1)
+        {
+            // it should not be same number; ex: [3,2,4] and 6
+            if (i != hash[number_to_find])
+            {
+                // need to return the indices
+                result.push_back(hash[number_to_find]);
+                result.push_back(i);
+
+                return result;
+            }
+        }
+    }
+
+    return result;
+}
+
 
 int main()
 {
